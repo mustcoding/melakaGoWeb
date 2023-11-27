@@ -101,7 +101,10 @@ class NavigationLoginWebSA extends StatelessWidget {
         _AlertMessage3(context, "NOTE: Account Successfully Deactivate");
         Future.delayed(Duration(seconds: 2), () {
           // Navigate to the login screen
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>signIn()));
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => signIn()),
+          );
         });
       }
       else{
@@ -164,9 +167,9 @@ class NavigationLoginWebSA extends StatelessWidget {
 
                   }
                   if(value == 'Sign Out'){
-                    Navigator.push(
-                      context, MaterialPageRoute(builder:(context)=>signIn(),
-                    ),
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => signIn()),
                     );
                   }
                 },
