@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:melakago_web/views/home/homePageView_Web_BSDC.dart';
 import '../Model/appUser.dart';
-import 'home/homePageView_Web.dart';
+import 'home/homePageView_Web_SA.dart';
+import 'home/homePageView_Web_TAC.dart';
 import 'home/home_view.dart';
 
 void main(){
@@ -60,8 +62,19 @@ class _LoginScreenState extends State<signIn> {
         });
 
         _showMessage("LogIn Successful");
-        // Navigate to the login screen
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePageViewWeb(user:user)));
+        if(user.roleId==1) {
+          //System Admin
+          // Navigate to the login screen
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePageViewWebSA(user:user)));
+        }
+        else if (user.roleId==2){
+          //Business Spot Data Collector
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePageViewWebBSDC(user:user)));
+        }
+        else if(user.roleId==3){
+          //Tourist Activity Curator
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePageViewWebTAC(user:user)));
+        }
 
       }
       else{

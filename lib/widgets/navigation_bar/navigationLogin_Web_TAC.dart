@@ -3,11 +3,11 @@ import '../../Model/appUser.dart';
 import '../../views/login.dart';
 import '../../views/signUp.dart';
 
-class NavigationLoginWeb extends StatelessWidget {
+class NavigationLoginWebTAC extends StatelessWidget {
 
   final appUser user;
 
-  NavigationLoginWeb({super.key, required this.user});
+  NavigationLoginWebTAC ({super.key, required this.user});
 
   void _AlertMessage1(BuildContext context, String msg) {
     showDialog(
@@ -128,7 +128,7 @@ class NavigationLoginWeb extends StatelessWidget {
           Expanded(
             child: Center(
               child: Text(
-                'System Admin Page',
+                'Tourist Activity Curator Admin',
                 style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
               ),
             ),

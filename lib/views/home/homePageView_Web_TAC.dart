@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-
+import 'package:melakago_web/widgets/navigation_bar/navigationLogin_Web_TAC.dart';
 import '../../Model/appUser.dart';
-import '../../widgets/navigation_bar/navigationLogin_Web.dart';
 
-
-class HomePageViewWeb extends StatelessWidget {
+class HomePageViewWebTAC extends StatelessWidget {
 
   late final appUser user;
-  HomePageViewWeb({required this.user}) : nickName = user.nickName;
+  HomePageViewWebTAC({required this.user}) : nickName = user.nickName;
   String nickName = '';
 
   @override
@@ -17,7 +15,7 @@ class HomePageViewWeb extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            NavigationLoginWeb(user: user),
+            NavigationLoginWebTAC(user: user),
             SizedBox(height: 80),
             Padding(padding: const EdgeInsets.all(50.0),
               child:
