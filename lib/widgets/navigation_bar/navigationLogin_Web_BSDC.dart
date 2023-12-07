@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:melakago_web/views/BSDC_Function/addServices.dart';
 import '../../Model/appUser.dart';
 import '../../views/login.dart';
 import '../../views/signUp.dart';
@@ -93,8 +94,8 @@ class NavigationLoginWebBSDC extends StatelessWidget {
 
     if(email.isNotEmpty && appUserId!=null)
     {
-      appUser user = appUser (appUserId, firstName, lastName, nickName, dateOfBirth,
-          phoneNumber,email, password, accessStatus,
+      appUser user = appUser (appUserId, firstName, lastName, nickName,
+          dateOfBirth, phoneNumber,email, password, accessStatus,
           country, roleId);
 
       if ( await user.deleteUser()) {
@@ -128,17 +129,61 @@ class NavigationLoginWebBSDC extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          ClipOval(
+            child: Image.asset(
+              'assets/MelakaGo.png',
+              width: 80,
+              height: 80,
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(width:15.0),
           Expanded(
-            child: Center(
-              child: Text(
-                'Business Spot Data Collector Admin',
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-              ),
+            child:
+            Text(
+              'Business Spot Data Collector Admin',
+              style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
             ),
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+              TextButton(
+                onPressed: (){
+
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>addServices()));
+                },
+                style: TextButton.styleFrom(
+                  primary: Colors.black, // Set your desired background color here
+                ),
+                child: const Text('ADD SERVICES',
+                    style: TextStyle(fontSize: 18.0,
+                        fontWeight: FontWeight.bold)),
+              ),
+              TextButton(
+                onPressed: (){
+
+                  //Navigator.push(context, MaterialPageRoute(builder: (context)=>deleteServices()));
+                },
+                style: TextButton.styleFrom(
+                  primary: Colors.black, // Set your desired background color here
+                ),
+                child: const Text('DELETE SERVICES',
+                    style: TextStyle(fontSize: 18.0,
+                        fontWeight: FontWeight.bold, color: Colors.black)),
+              ),
+              TextButton(
+                onPressed: (){
+
+                },
+                style: TextButton.styleFrom(
+                  primary: Colors.black, // Set your desired background color here
+                ),
+                child: const Text('EDIT',
+                    style: TextStyle(fontSize: 18.0,
+                        fontWeight: FontWeight.bold, color: Colors.black)),
+              ),
+              SizedBox(width:50),
               Text(
                 "Hi, ${user.nickName}",
                 style: TextStyle(fontSize: 20.0),

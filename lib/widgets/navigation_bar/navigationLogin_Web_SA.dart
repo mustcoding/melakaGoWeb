@@ -128,12 +128,20 @@ class NavigationLoginWebSA extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          ClipOval(
+            child: Image.asset(
+              'assets/MelakaGo.png',
+              width: 80,
+              height: 80,
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(width:15.0),
           Expanded(
-            child: Center(
-              child: Text(
-                'System Admin Page',
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-              ),
+            child:
+            Text(
+              'System Admin',
+              style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
             ),
           ),
           Row(

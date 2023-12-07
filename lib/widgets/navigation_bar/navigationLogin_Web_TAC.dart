@@ -128,17 +128,58 @@ class NavigationLoginWebTAC extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          ClipOval(
+            child: Image.asset(
+              'assets/MelakaGo.png',
+              width: 80,
+              height: 80,
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(width:15.0),
           Expanded(
-            child: Center(
-              child: Text(
-                'Tourist Activity Curator Admin',
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-              ),
+            child:
+            Text(
+              'Tourist Activity Curator',
+              style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
             ),
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+              ElevatedButton(
+                onPressed: (){
+
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.lightGreen.shade700, // Set your desired background color here
+                ),
+                child: const Text('ADD SERVICES',
+                    style: TextStyle(fontSize: 18.0,
+                        fontWeight: FontWeight.bold, color: Colors.white)),
+              ),
+              ElevatedButton(
+                onPressed: (){
+
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.lightGreen.shade700, // Set your desired background color here
+                ),
+                child: const Text('DELETE SERVICES',
+                    style: TextStyle(fontSize: 18.0,
+                        fontWeight: FontWeight.bold, color: Colors.white)),
+              ),
+              ElevatedButton(
+                onPressed: (){
+
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.lightGreen.shade700, // Set your desired background color here
+                ),
+                child: const Text('EDIT',
+                    style: TextStyle(fontSize: 18.0,
+                        fontWeight: FontWeight.bold, color: Colors.white)),
+              ),
               Text(
                 "Hi, ${user.nickName}",
                 style: TextStyle(fontSize: 20.0),

@@ -60,7 +60,7 @@ class appUser {
     req.setBody(toJson());
     await req.post();
     if (req.status() == 400) {
-      return true;
+      return false;
     } else if (req.status() == 200) {
       String data = req.result().toString();
       if (data == '{error: Email is already registered}') {
@@ -69,7 +69,7 @@ class appUser {
         return true;
       }
     } else {
-      return true;
+      return false;
     }
   }
 
@@ -77,7 +77,6 @@ class appUser {
     RequestController req = RequestController(path: "/api/appUserCheckExistence.php");
     req.setBody(toJson());
     await req.post();
-    print('Json Data: ${req.result()}');
     if (req.status() == 200) {
       appUserId=req.result()['appUserId'];
       firstName=req.result()['firstName'];
@@ -97,9 +96,7 @@ class appUser {
     }
   }
 
-
   Future<bool> deleteUser() async {
-
     RequestController req = RequestController(path: "/api/appUserCheckExistence.php");
     req.setBody({"appUserId": appUserId, "accessStatus": "DEACTIVATE"});
     await req.put();
@@ -111,6 +108,7 @@ class appUser {
       return false;
     }
   }
+
 
   Future<List<appUser>> loadAll() async {
     List<appUser> result = [];
