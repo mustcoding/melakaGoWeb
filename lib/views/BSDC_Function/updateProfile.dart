@@ -1,217 +1,84 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:melakago_web/views/home/homePageView_Web_BSDC.dart';
 
-import '../Model/appUser.dart';
-import 'login.dart';
+import '../../Model/appUser.dart';
+import '../login.dart';
 
-void main() {
-  runApp(
-    MaterialApp(
-      home: Directionality(
-        textDirection: TextDirection.ltr, // or TextDirection.rtl
-        child: updateProfile(user: appUser.fromJson(json as Map<String, dynamic>),),
-      ),
-    ),
-  );
-}
 
-class updateProfile extends StatefulWidget {
+class updateProfilePage extends StatefulWidget {
+  late appUser user;
 
-  final appUser user;
-  const updateProfile({required this.user});
+  updateProfilePage({Key? key, required appUser user}) : super(key: key) {
+    this.user = user;
+  }
+
 
   @override
-  State<updateProfile> createState() => _updateProfileState();
+  State<updateProfilePage> createState() => _updateProfilePageState();
 }
 
-class _updateProfileState extends State<updateProfile> {
-
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController nickNameController = TextEditingController();
-  TextEditingController dateOfBirthController = TextEditingController();
-  TextEditingController emailController=TextEditingController();
-  TextEditingController passwordController=TextEditingController();
-  TextEditingController phoneNumberController=TextEditingController();
+class _updateProfilePageState extends State<updateProfilePage> {
+  int appUserId=0;
+  int roleId=0;
+  late TextEditingController firstNameController;
+  late TextEditingController lastNameController;
+  late TextEditingController nickNameController;
+  late TextEditingController dateOfBirthController;
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
+  late TextEditingController phoneNumberController;
+  late TextEditingController countryController;
+  late TextEditingController adminRoleController;
+  late TextEditingController DOBController;
 
   DateTime? selectedDate;
   String? selectedCountry;
   String? role;
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
-    );
+  @override
+  void initState() {
+    super.initState();
 
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-        selectedDate = picked;
-        dateOfBirthController.text = "${picked.toLocal()}".split(' ')[0];
-      });
+    firstNameController = TextEditingController();
+    lastNameController = TextEditingController();
+    nickNameController = TextEditingController();
+    dateOfBirthController = TextEditingController();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    phoneNumberController = TextEditingController();
+    countryController = TextEditingController();
+    adminRoleController = TextEditingController();
+
+
+    // Initialize the user field here
+    firstNameController.text = widget.user.firstName;
+    lastNameController.text = widget.user.lastName;
+    nickNameController.text = widget.user.nickName;
+    dateOfBirthController.text = widget.user.dateOfBirth;
+    emailController.text = widget.user.email;
+    passwordController.text = widget.user.password;
+    phoneNumberController.text = widget.user.phoneNumber;
+    countryController.text = widget.user.country ;
+    adminRoleController.text = widget.user.roleId.toString();
+    appUserId = widget.user.appUserId;
+    roleId = widget.user.roleId;
+
+
+    if (adminRoleController.text=="1"){
+      adminRoleController.text = "System Admin" ;
     }
+    else if (adminRoleController.text=="2"){
+      adminRoleController.text="Business Spot Data Collector";
+    }
+    else if (adminRoleController.text=="3"){
+      adminRoleController.text="Tourist Activity Curator";
+    }
+
   }
 
-  List<String> countries = [
-    'Afghanistan',
-    'Albania',
-    'Algeria',
-    'Andorra',
-    'Angola',
-    'Argentina',
-    'Armenia',
-    'Australia',
-    'Austria',
-    'Azerbaijan',
-    'Bahamas',
-    'Bahrain',
-    'Bangladesh',
-    'Belarus',
-    'Belgium',
-    'Bhutan',
-    'Bolivia',
-    'Bosnia and Herzegovina',
-    'Brazil',
-    'Brunei',
-    'Cambodia',
-    'Canada',
-    'Chile',
-    'China',
-    'Congo',
-    'Croatia',
-    'Cuba',
-    'Cyprus',
-    'Czech Republic',
-    'Denmark',
-    'Ecuador',
-    'Egypt',
-    'England',
-    'Fiji',
-    'Finland',
-    'France',
-    'Germany',
-    'Ghana',
-    'Greece',
-    'Hungary',
-    'Iceland',
-    'India',
-    'Indonesia',
-    'Iran',
-    'Iraq',
-    'Ireland',
-    'Italy',
-    'Jamaica',
-    'Japan',
-    'Jordan',
-    'Kazakhstan',
-    'Kenya',
-    'Kiribati',
-    'Kosovo',
-    'Kuwait',
-    'Kyrgyzstan',
-    'Laos',
-    'Latvia',
-    'Lebanon',
-    'Lesotho',
-    'Liberia',
-    'Libya',
-    'Liechtenstein',
-    'Lithuania',
-    'Luxembourg',
-    'Macau',
-    'Madagascar',
-    'Malawi',
-    'Malaysia',
-    'Maldives',
-    'Mali',
-    'Malta',
-    'Mauritania',
-    'Mauritius',
-    'Mexico',
-    'Micronesia',
-    'Moldova',
-    'Monaco',
-    'Mongolia',
-    'Montenegro',
-    'Morocco',
-    'Myanmar',
-    'Nepal',
-    'Netherlands',
-    'New Zealand',
-    'Nigeria',
-    'Northern Ireland',
-    'Norway',
-    'Oman',
-    'Pakistan',
-    'Palau',
-    'Palestine',
-    'Panama',
-    'Papua New Guinea',
-    'Paraguay',
-    'Peru',
-    'Philippines',
-    'Poland',
-    'Portugal',
-    'Qatar',
-    'Republic of Macedonia',
-    'Romania',
-    'Russia',
-    'Saudi Arabia',
-    'Scotland',
-    'Senegal',
-    'Serbia',
-    'Seychelles',
-    'Sierra Leone',
-    'Singapore',
-    'Slovakia',
-    'Slovenia',
-    'Solomon Islands',
-    'Somalia',
-    'South Africa',
-    'South Korea',
-    'Spain',
-    'Sri Lanka',
-    'Sudan',
-    'Swaziland',
-    'Sweden',
-    'Switzerland',
-    'Syria',
-    'Tajikistan',
-    'Tanzania',
-    'Thailand',
-    'Togo',
-    'Tonga',
-    'Tunisia',
-    'Turkey',
-    'Turkmenistan',
-    'Uganda',
-    'Ukraine',
-    'United Arab Emirates',
-    'United Kingdom',
-    'United States',
-    'Uruguay',
-    'Uzbekistan',
-    'Venezuela',
-    'Vietnam',
-    'Wales',
-    'Yemen',
-    'Zambia',
-    'Zimbabwe',
-  ];
 
-  // ubah jadi get role
-  List<String> adminType = [
-    'System Admin',
-    'Business Spot Data Collector',
-    'Tourist Activity Curator',
-  ];
+  void _editAdmin() async{
 
-  void _addAdmin() async{
-
-    final List<appUser> admin= [];
     final String firstName = firstNameController.text.trim();
     final String lastName = lastNameController.text.trim();
     final String nickName = nickNameController.text.trim();
@@ -219,112 +86,48 @@ class _updateProfileState extends State<updateProfile> {
     final String email = emailController.text.trim();
     final String password=passwordController.text.trim();
     final String phoneNumber=phoneNumberController.text.trim();
+    final String selectedCountry = countryController.text.trim();
     final String accessStatus = 'ACTIVE';
-    int appUserId=0;
-    int roleId=0;
 
-    if (firstName.isNotEmpty && lastName.isNotEmpty && nickName.isNotEmpty
-        && dateOfBirth.isNotEmpty && email.isNotEmpty && password.isNotEmpty
-        && phoneNumber.isNotEmpty && selectedCountry != null && role != null) {
+    appUser user = appUser (appUserId,firstName, lastName, nickName,
+       dateOfBirth, phoneNumber,email, password, accessStatus,
+     selectedCountry, roleId);
 
-      //_AlertMessage("success");
-
-      if(role == 'System Admin')
-      {
-        roleId = 1;
-        //_AlertMessage("success");
-      }
-      else if(role == 'Business Spot Data Collector')
-      {
-        roleId = 2;
-        // _AlertMessage("success");
-      }
-      else if(role == 'Tourist Activity Curator')
-      {
-        roleId = 3;
-      }
-
-      appUser user = appUser (appUserId,firstName, lastName, nickName,
-          dateOfBirth, phoneNumber,email, password, accessStatus,
-          selectedCountry.toString(), roleId);
-
-      if (await user.save()){
-        setState(() {
-          firstNameController.clear();
-          lastNameController.clear();
-          nickNameController.clear();
-          dateOfBirthController.clear();
-          emailController.clear();
-          passwordController.clear();
-          phoneNumberController.clear();
-          selectedCountry = null; // Set selectedCountry to null
-          role = null; // Set role to null
-        });
-        _AlertMessage("Sign Up Successful");
-        Future.delayed(Duration(seconds: 2), () {
-          // Navigate to the login screen
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>signIn()));
-        });
-
-
-      }
-      else{
-        _AlertMessage("SIGNUP UNSUCCESSFUL: Email has been registered");
-      }
+    if ( await user.updateProfile()) {
+      _AlertMessage(context, "NOTE: Profile Successfully Updated");
+      Future.delayed(Duration(seconds: 2), () {
+        // Navigate to the login screen
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomePageViewWebBSDC(user: user)),
+        );
+      });
     }
     else{
-      _AlertMessage("Please Insert All The Information Needed");
-      setState(() {
-        firstNameController.clear();
-        lastNameController.clear();
-        nickNameController.clear();
-        dateOfBirthController.clear();
-        emailController.clear();
-        passwordController.clear();
-        phoneNumberController.clear();
-        selectedCountry = null; // Set selectedCountry to null
-        role = null; // Set role to null
-      });
-
+      _AlertMessage(context, "NOTE: Profile Unsuccessful Updated");
     }
+
   }
 
-  void _AlertMessage(String msg) {
+  void _AlertMessage(BuildContext context, String msg) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text("Message"),
           content: Text(msg),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text("OK"),
-            ),
-          ],
         );
       },
     );
   }
 
-  void _showMessage(String msg){
-    if(mounted){
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(msg),
-        ),
-      );
-    }
-  }
 
-//hello world
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: const Text('Account Registration',
+        toolbarHeight: 90,
+        title: Center(child: const Text('Profile Update',
             style: TextStyle(fontWeight: FontWeight.bold)),),
         backgroundColor: Colors.lightGreen.shade700,
       ),
@@ -337,14 +140,7 @@ class _updateProfileState extends State<updateProfile> {
               Text("Lets Become a MelakaGoer !",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35)),
               SizedBox(height: 30),
-              /*Image.network('https://img.fkkkkreepik.com/premium-vector/vector-'
-                  'famosa-malacca-historical-city_942441-43.jpg?w=740',
-                width: 200,
-                height: 200,
-                //https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/
-                // Flag_coat_of_Malacca_1946-1957.svg/772px-Flag_coat_of_
-                // Malacca_1946-1957.svg.png
-              ),*/
+
               ClipOval(
                 child: Image.asset(
                   'assets/MelakaGo.png',
@@ -365,7 +161,7 @@ class _updateProfileState extends State<updateProfile> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'firstName', // Your label text
+                            'First Name', // Your label text
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
@@ -379,6 +175,7 @@ class _updateProfileState extends State<updateProfile> {
                             ),
                             child: TextField(
                               controller: firstNameController,
+                              readOnly: true,
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
                               ),
@@ -396,7 +193,7 @@ class _updateProfileState extends State<updateProfile> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'lastName', // Your label text
+                            'Last Name', // Your label text
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
@@ -410,6 +207,7 @@ class _updateProfileState extends State<updateProfile> {
                             ),
                             child: TextField(
                               controller: lastNameController,
+                              readOnly: true,
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
                               ),
@@ -429,7 +227,7 @@ class _updateProfileState extends State<updateProfile> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'nickName', // Your label text
+                        'Nick Name', // Your label text
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
@@ -456,42 +254,31 @@ class _updateProfileState extends State<updateProfile> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 300,
+                    width: 300.0,
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Date of Birth',
+                            'Date of Birth', // Your label text
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 5.0),
+                          SizedBox(height: 5.0), // Add some space between the label and the text field
                           Container(
                             padding: const EdgeInsets.all(4.0),
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.grey),
                               borderRadius: BorderRadius.circular(50.0),
                             ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: TextFormField(
-                                    controller: dateOfBirthController,
-                                    decoration: const InputDecoration(
-                                      border: InputBorder.none,
-                                    ),
-                                  ),
-                                ),
-                                IconButton(
-                                  icon: Icon(Icons.calendar_today),
-                                  onPressed: () {
-                                    _selectDate(context);
-                                  },
-                                ),
-                              ],
+                            child: TextField(
+                              controller: dateOfBirthController,
+                              readOnly: true,
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                              ),
                             ),
                           ),
                         ],
@@ -499,41 +286,29 @@ class _updateProfileState extends State<updateProfile> {
                     ),
                   ),
                   Container(
-                    width: 300,
+                    width: 300.0,
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Country',
+                            'Country', // Your label text
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 5.0),
+                          SizedBox(height: 5.0), // Add some space between the label and the text field
                           Container(
                             padding: const EdgeInsets.all(4.0),
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.grey),
                               borderRadius: BorderRadius.circular(50.0),
                             ),
-                            child: DropdownButtonFormField<String>(
-                              value: selectedCountry,
-                              hint: Text('Select Country'),
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedCountry = value;
-                                });
-                              },
-                              isExpanded: true,
-                              items: countries.map((String country) {
-                                return DropdownMenuItem<String>(
-                                  value: country,
-                                  child: Text(country),
-                                );
-                              }).toList(),
-                              decoration: InputDecoration(
+                            child: TextField(
+                              controller: countryController,
+                              readOnly: true,
+                              decoration: const InputDecoration(
                                 border: InputBorder.none,
                               ),
                             ),
@@ -579,41 +354,29 @@ class _updateProfileState extends State<updateProfile> {
                     ),
                   ),
                   Container(
-                    width: 300,
+                    width: 300.0,
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Admin Role',
+                            'Admin Role', // Your label text
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 5.0),
+                          SizedBox(height: 5.0), // Add some space between the label and the text field
                           Container(
                             padding: const EdgeInsets.all(4.0),
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.grey),
                               borderRadius: BorderRadius.circular(50.0),
                             ),
-                            child: DropdownButtonFormField<String>(
-                              value: role,
-                              hint: Text('Role Type'),
-                              onChanged: (value) {
-                                setState(() {
-                                  role = value;
-                                });
-                              },
-                              isExpanded: true,
-                              items: adminType.map((String jobScope) {
-                                return DropdownMenuItem<String>(
-                                  value: jobScope,
-                                  child: Text(jobScope),
-                                );
-                              }).toList(),
-                              decoration: InputDecoration(
+                            child: TextField(
+                              controller: adminRoleController,
+                              readOnly: true,
+                              decoration: const InputDecoration(
                                 border: InputBorder.none,
                               ),
                             ),
@@ -632,7 +395,7 @@ class _updateProfileState extends State<updateProfile> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'email', // Your label text
+                        'Email', // Your label text
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
@@ -663,7 +426,7 @@ class _updateProfileState extends State<updateProfile> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'password', // Your label text
+                        'Password', // Your label text
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
@@ -688,14 +451,15 @@ class _updateProfileState extends State<updateProfile> {
               ),
               SizedBox(height: 5),
               ElevatedButton(
-                onPressed: _addAdmin,
+                onPressed: _editAdmin,
                 style: ElevatedButton.styleFrom(
                   primary: Colors.lightGreen.shade700, // Set your desired background color here
                 ),
-                child: const Text('Sign up',
+                child: const Text('Edit Profile',
                     style: TextStyle(fontSize: 18.0,
                         fontWeight: FontWeight.bold, color: Colors.white)),
               ),
+              SizedBox(height: 20),
             ],
           ),
         ),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:melakago_web/views/BSDC_Function/addServices.dart';
+import 'package:melakago_web/views/BSDC_Function/updateProfile.dart';
 import '../../Model/appUser.dart';
+import '../../views/BSDC_Function/showServices.dart';
 import '../../views/login.dart';
-import '../../views/signUp.dart';
+
 
 class NavigationLoginWebBSDC extends StatelessWidget {
 
@@ -151,7 +153,7 @@ class NavigationLoginWebBSDC extends StatelessWidget {
               TextButton(
                 onPressed: (){
 
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>addServices()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>addServices(user: user)));
                 },
                 style: TextButton.styleFrom(
                   primary: Colors.black, // Set your desired background color here
@@ -162,31 +164,19 @@ class NavigationLoginWebBSDC extends StatelessWidget {
               ),
               TextButton(
                 onPressed: (){
-
-                  //Navigator.push(context, MaterialPageRoute(builder: (context)=>deleteServices()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>showServices(user:user)));
                 },
                 style: TextButton.styleFrom(
                   primary: Colors.black, // Set your desired background color here
                 ),
-                child: const Text('DELETE SERVICES',
-                    style: TextStyle(fontSize: 18.0,
-                        fontWeight: FontWeight.bold, color: Colors.black)),
-              ),
-              TextButton(
-                onPressed: (){
-
-                },
-                style: TextButton.styleFrom(
-                  primary: Colors.black, // Set your desired background color here
-                ),
-                child: const Text('EDIT',
+                child: const Text('SHOW SERVICES',
                     style: TextStyle(fontSize: 18.0,
                         fontWeight: FontWeight.bold, color: Colors.black)),
               ),
               SizedBox(width:50),
               Text(
                 "Hi, ${user.nickName}",
-                style: TextStyle(fontSize: 20.0),
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
               SizedBox(width:15.0),
               PopupMenuButton<String>(
@@ -201,7 +191,7 @@ class NavigationLoginWebBSDC extends StatelessWidget {
                 onSelected: (String value){
                   if(value == 'Update Profile'){
                     Navigator.push(
-                      context, MaterialPageRoute(builder:(context)=>signUp(),
+                      context, MaterialPageRoute(builder:(context)=>updateProfilePage(user:user),
                     ),
                     );
                   }

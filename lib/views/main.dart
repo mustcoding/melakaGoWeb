@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:responsive_builder/responsive_builder.dart';
-import 'BSDC_Function/addServices.dart';
 import 'home/home_view_mobile.dart';
 import 'home/home_view_tablet.dart';
 import 'home/home_view_web.dart';
@@ -25,7 +23,7 @@ class MyApp extends StatelessWidget {
         builder: (context, sizingInformation){
           // Check the sizing information here and return your UI
           if (sizingInformation.deviceScreenType == DeviceScreenType.desktop) {
-            return HomeViewWeb();
+            return HomeViewWeb();//HomeViewWeb();
           } else if (sizingInformation.deviceScreenType == DeviceScreenType.tablet) {
             return HomeViewTablet();
           } else if (sizingInformation.deviceScreenType == DeviceScreenType.mobile) {

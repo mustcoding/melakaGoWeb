@@ -6,26 +6,25 @@ import 'package:melakago_web/Model/tourismService.dart';
 import 'package:melakago_web/Model/tourismServiceImage.dart';
 import 'package:file_picker/file_picker.dart';
 
+import '../../Model/appUser.dart';
+import '../home/homePageView_Web_BSDC.dart';
 
-void main() {
-  runApp(
-    MaterialApp(
-      home: Directionality(
-        textDirection: TextDirection.ltr, // or TextDirection.rtl
-        child: const addServices(),
-      ),
-    ),
-  );
-}
 
 class addServices extends StatefulWidget {
-  const addServices({super.key});
+  late appUser user;
+
+  addServices({Key? key, required appUser user}) : super(key: key) {
+    this.user = user;
+  }
+
 
   @override
   State<addServices> createState() => _addServicesState();
 }
 
 class _addServicesState extends State<addServices> {
+
+
   TextEditingController companyNameController = TextEditingController();
   TextEditingController companyAddressController = TextEditingController();
   TextEditingController businessContactNumberController = TextEditingController();
@@ -43,6 +42,7 @@ class _addServicesState extends State<addServices> {
   TextEditingController tsIdController=TextEditingController();
 
   String base64String='';
+  int isDelete=0;
   String? types;
   final PageController _pageController = PageController();
 
@@ -105,7 +105,7 @@ class _addServicesState extends State<addServices> {
       {
         tsId = 4;
       }
-      else if(types == 'Activities')
+      else if(types == 'Activity')
       {
         tsId = 5;
       }
@@ -118,7 +118,7 @@ class _addServicesState extends State<addServices> {
           companyAddress, businessContactNumber,
           email, businessStartHour,businessEndHour, faxNumber, instagram,
           xTwitter, thread, facebook, businessLocation,starRating,
-          businessDescription, tsId);
+          businessDescription, tsId, isDelete);
 
       if (await services.saveService()){
 
@@ -134,9 +134,16 @@ class _addServicesState extends State<addServices> {
 
           if(await image.saveImage()){
             _AlertMessage("Tourism Service Has Been Added");
-            Future.delayed(Duration(seconds: 2), () {
+            Future.delayed(Duration(seconds: 1), () {
+
+              setState(() {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomePageViewWebBSDC(user: widget.user)),
+                );
+              });
+
               // Navigate to the login screen
-              Navigator.pop(context);
             });
           } else{
             _AlertMessage("Unable to save the images");
@@ -211,7 +218,7 @@ class _addServicesState extends State<addServices> {
     if (result != null) {
       List<Uint8List> fileDataList = result.files.map((file) => file.bytes!).toList();
 
-      if (fileDataList.length == 1) {
+      if (fileDataList.length ==1) {
         setState(() {
           selectedImages.clear();
           selectedImages.addAll(fileDataList);

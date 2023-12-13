@@ -332,14 +332,6 @@ class _signUpState extends State<signUp> {
               Text("Lets Become a MelakaGoer !",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35)),
               SizedBox(height: 30),
-              /*Image.network('https://img.fkkkkreepik.com/premium-vector/vector-'
-                  'famosa-malacca-historical-city_942441-43.jpg?w=740',
-                width: 200,
-                height: 200,
-                //https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/
-                // Flag_coat_of_Malacca_1946-1957.svg/772px-Flag_coat_of_
-                // Malacca_1946-1957.svg.png
-              ),*/
               ClipOval(
                 child: Image.asset(
                   'assets/MelakaGo.png',

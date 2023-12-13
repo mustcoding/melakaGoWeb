@@ -36,12 +36,13 @@ class HomePageViewWebBSDC extends StatelessWidget {
         int starRating=0;
         String businessDescription='';
         int tsId=serviceId;
+        int isDelete=0;
 
             tourismService service=tourismService (tourismServiceId,
             companyName,companyAddress,businessContactNumber, email,
             businessStartHour, businessEndHour, faxNumber,instagram, xTwitter,
             thread,facebook, businessLocation, starRating, businessDescription,
-            tsId);
+            tsId, isDelete);
 
             if(tsId==1){
               shopping=(await service.calculate()) as int?;
@@ -206,6 +207,7 @@ class HomePageViewWebBSDC extends StatelessWidget {
                               ),
                               child: Column(
                                 children: [
+                                  SizedBox(height:6.0),
                                   // Icon and Title
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,

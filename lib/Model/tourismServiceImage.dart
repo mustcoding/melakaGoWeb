@@ -44,4 +44,19 @@ class tourismServiceImage {
     }
   }
 
+  Future<bool> getImage() async {
+    RequestController req = RequestController(path: "/api/getImage.php");
+    req.setBody(toJson());
+    await req.post();
+    if (req.status() == 200) {
+      imageId = req.result()['imageId'];
+      image = req.result()['image'];
+      tourismServiceId = req.result()['tourismServiceId'];
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
 }

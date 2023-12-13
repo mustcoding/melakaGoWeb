@@ -1,3 +1,5 @@
+
+
 import '../Controller/request_controller.dart';
 
 class appUser {
@@ -99,6 +101,19 @@ class appUser {
   Future<bool> deleteUser() async {
     RequestController req = RequestController(path: "/api/appUserCheckExistence.php");
     req.setBody({"appUserId": appUserId, "accessStatus": "DEACTIVATE"});
+    await req.put();
+    if (req.status() == 400) {
+      return false;
+    } else if (req.status() == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> updateProfile() async {
+    RequestController req = RequestController(path: "/api/appuser.php");
+    req.setBody({"appUserId": appUserId, "nickName": nickName, "phoneNumber": phoneNumber, "email": email, "password": password });
     await req.put();
     if (req.status() == 400) {
       return false;

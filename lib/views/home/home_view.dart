@@ -10,6 +10,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
         child: Column(
           children: <Widget>[
             NavigationBar(destinations: []),
