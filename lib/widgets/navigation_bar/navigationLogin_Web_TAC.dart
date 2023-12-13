@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:melakago_web/views/TAC_Function/quizForm.dart';
 import '../../Model/appUser.dart';
+import '../../views/BSDC_Function/addServices.dart';
+import '../../views/BSDC_Function/showServices.dart';
+import '../../views/BSDC_Function/updateProfile.dart';
 import '../../views/login.dart';
 import '../../views/signUp.dart';
 
@@ -136,7 +140,7 @@ class NavigationLoginWebTAC extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          SizedBox(width:15.0),
+          SizedBox(width:30.0),
           Expanded(
             child:
             Text(
@@ -147,42 +151,34 @@ class NavigationLoginWebTAC extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              ElevatedButton(
+              TextButton(
                 onPressed: (){
 
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>quizForm(user: user)));
                 },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.lightGreen.shade700, // Set your desired background color here
+                style: TextButton.styleFrom(
+                  primary: Colors.black, // Set your desired background color here
                 ),
-                child: const Text('ADD SERVICES',
+                child: const Text('ADD QUIZ',
                     style: TextStyle(fontSize: 18.0,
-                        fontWeight: FontWeight.bold, color: Colors.white)),
+                        fontWeight: FontWeight.bold)),
               ),
-              ElevatedButton(
+              TextButton(
                 onPressed: (){
 
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>showServices(user: user)));
                 },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.lightGreen.shade700, // Set your desired background color here
+                style: TextButton.styleFrom(
+                  primary: Colors.black, // Set your desired background color here
                 ),
-                child: const Text('DELETE SERVICES',
+                child: const Text('SHOW SERVICE',
                     style: TextStyle(fontSize: 18.0,
-                        fontWeight: FontWeight.bold, color: Colors.white)),
+                        fontWeight: FontWeight.bold)),
               ),
-              ElevatedButton(
-                onPressed: (){
-
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.lightGreen.shade700, // Set your desired background color here
-                ),
-                child: const Text('EDIT',
-                    style: TextStyle(fontSize: 18.0,
-                        fontWeight: FontWeight.bold, color: Colors.white)),
-              ),
+              SizedBox(width:50),
               Text(
                 "Hi, ${user.nickName}",
-                style: TextStyle(fontSize: 20.0),
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
               SizedBox(width:15.0),
               PopupMenuButton<String>(
@@ -197,7 +193,7 @@ class NavigationLoginWebTAC extends StatelessWidget {
                 onSelected: (String value){
                   if(value == 'Update Profile'){
                     Navigator.push(
-                      context, MaterialPageRoute(builder:(context)=>signUp(),
+                      context, MaterialPageRoute(builder:(context)=>updateProfilePage(user:user),
                     ),
                     );
                   }
