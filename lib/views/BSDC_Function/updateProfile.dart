@@ -88,10 +88,11 @@ class _updateProfilePageState extends State<updateProfilePage> {
     final String phoneNumber=phoneNumberController.text.trim();
     final String selectedCountry = countryController.text.trim();
     final String accessStatus = 'ACTIVE';
+    final int points = 0;
 
     appUser user = appUser (appUserId,firstName, lastName, nickName,
        dateOfBirth, phoneNumber,email, password, accessStatus,
-     selectedCountry, roleId);
+     selectedCountry, roleId, points);
 
     if ( await user.updateProfile()) {
       _AlertMessage(context, "NOTE: Profile Successfully Updated");

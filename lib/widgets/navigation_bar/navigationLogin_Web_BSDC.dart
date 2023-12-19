@@ -93,12 +93,13 @@ class NavigationLoginWebBSDC extends StatelessWidget {
     String accessStatus=user.accessStatus;
     String country=user.country;
     int roleId=user.roleId;
+    int points = user.points;
 
     if(email.isNotEmpty && appUserId!=null)
     {
       appUser user = appUser (appUserId, firstName, lastName, nickName,
           dateOfBirth, phoneNumber,email, password, accessStatus,
-          country, roleId);
+          country, roleId, points);
 
       if ( await user.deleteUser()) {
         _AlertMessage3(context, "NOTE: Account Successfully Deactivate");

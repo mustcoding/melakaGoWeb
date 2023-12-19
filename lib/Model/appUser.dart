@@ -14,6 +14,7 @@ class appUser {
   String accessStatus;
   String country;
   int roleId;
+  int points;
 
   appUser(
       this.appUserId,
@@ -26,7 +27,8 @@ class appUser {
       this.password,
       this.accessStatus,
       this.country,
-      this.roleId
+      this.roleId,
+      this.points
       );
 
   appUser.fromJson(Map<String, dynamic> json)
@@ -40,7 +42,8 @@ class appUser {
         password = json['password'] as String,
         accessStatus = json['accessStatus'] as String,
         country = json['country'] as String,
-        roleId = json['roleId'] as dynamic;
+        roleId = json['roleId'] as dynamic,
+        points = json['points'] as dynamic;
 
   //toJson will be automatically called by jsonEncode when necessary
   Map<String, dynamic> toJson() => {
@@ -54,7 +57,8 @@ class appUser {
     'password': password,
     'accessStatus': accessStatus,
     'country': country,
-    'roleId': roleId
+    'roleId': roleId,
+    'points': points,
   };
 
   Future<bool> save() async {
@@ -91,6 +95,7 @@ class appUser {
       country=req.result()['country'];
       accessStatus=req.result()['accessStatus'];
       roleId=req.result()['roleId'];
+      points=req.result()['points'];
       return true;
     }
     else {

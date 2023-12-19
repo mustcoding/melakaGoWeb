@@ -46,7 +46,7 @@ class qrSpot {
   }
 
   Future<bool> getQRId() async {
-    RequestController req = RequestController(path: "/api/getTourismServiceId.php");
+    RequestController req = RequestController(path: "/api/getTourismServiceIdQuiz.php");
     req.setBody(toJson());
     await req.post();
     if (req.status() == 200) {

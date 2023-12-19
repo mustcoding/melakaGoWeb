@@ -56,16 +56,13 @@ class quizQuestion {
   };
 
   Future<bool> saveQuestion() async {
-    RequestController req = RequestController(path: "/api/tourismService.php");
+    RequestController req = RequestController(path: "/api/quizquestion.php");
     req.setBody(toJson());
     await req.post();
-    if (req.status() == 400) {
-      return false;
-    } else if (req.status() == 200) {
+    if (req.status() == 200) {
 
       return true;
     }
-
     else {
       return false;
     }

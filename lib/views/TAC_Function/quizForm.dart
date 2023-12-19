@@ -49,6 +49,7 @@ class _quizFormState extends State<quizForm>{
   List<String> tServices = [];
   int tourismServiceQuiz=0;
   List<int> qrUnder20=[];
+  int qrIdEmpty=0;
 
 
   @override
@@ -221,17 +222,23 @@ class _quizFormState extends State<quizForm>{
         //instances to create new qrSpot
         qrSpot addQr = qrSpot(qrId, tourismServiceQuiz);
 
+        qrUnder20.clear();
+
         //add new qrSpot
         if(await addQr.saveQR()){
 
           print("Successful registered");
 
+          qrSpot qr = qrSpot.getId(tourismServiceQuiz);
 
-          
+          if (await qr.getQRId()){
+            qrUnder20.add(qr.qrId!);
+            print("The new QR: ${qrUnder20[0]}");
+
+          }
 
         }
 
-        qrUnder20.clear();
         Future.delayed(Duration(milliseconds: 100), () {
           setState(() {
             // Update the dropdown menu items with the new values

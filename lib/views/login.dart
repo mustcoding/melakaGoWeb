@@ -46,6 +46,7 @@ class _LoginScreenState extends State<signIn> {
     String country='';
     String accessStatus='';
     int roleId=0;
+    int points=0;
 
     if ( email.isNotEmpty && password.isNotEmpty) {
 
@@ -53,7 +54,7 @@ class _LoginScreenState extends State<signIn> {
 
       appUser user = appUser (appUserId, firstName, lastName, nickName, dateOfBirth,
           phoneNumber,email, password, accessStatus,
-          country, roleId);
+          country, roleId, points);
 
       if (await user.checkAdminExistence()){
         setState(() {
