@@ -26,6 +26,10 @@ class quizQuestion {
       this.qrId
       );
 
+  quizQuestion.Id(
+      this.qrId
+      );
+
   quizQuestion.fromJson(Map<String, dynamic> json)
       : questionId = json['questionId'] as dynamic?,
         questionText = json['questionText'] as String? ?? '',
@@ -71,6 +75,19 @@ class quizQuestion {
     RequestController req = RequestController(path: "/api/quizquestion.php");
     req.setBody(toJson());
     await req.get();
+    if (req.status() == 200) {
+      int result=req.result()['count'];
+      return result;
+    }
+    else {
+      return 0;
+    }
+  }
+
+  Future<int> calculateQuizByQR() async {
+    RequestController req = RequestController(path: "/api/quizquestion.php");
+    req.setBody(toJson());
+    await req.post();
     if (req.status() == 200) {
       int result=req.result()['count'];
       return result;

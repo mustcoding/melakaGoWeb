@@ -48,6 +48,10 @@ class tourismService {
       this.businessContactNumber,
       );
 
+  tourismService.getIdQuiz(
+      this.companyName,
+      );
+
   tourismService.fromJson(Map<String, dynamic> json)
       : tourismServiceId = json['tourismServiceId'] as dynamic?,
         companyName = json['companyName'] as String? ?? '',
@@ -117,6 +121,19 @@ class tourismService {
     }
   }
 
+  Future<bool> getServiceIdQuiz() async {
+    RequestController req = RequestController(path: "/api/getTourismServiceIdQuiz.php");
+    req.setBody(toJson());
+    await req.post();
+    if (req.status() == 200) {
+      tourismServiceId=req.result()['tourismServiceId'];
+      print(tourismServiceId);
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 
   Future<bool> getService() async {
     RequestController req = RequestController(path: "/api/countTourismService.php");
