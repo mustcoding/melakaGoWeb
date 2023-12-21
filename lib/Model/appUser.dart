@@ -3,18 +3,18 @@
 import '../Controller/request_controller.dart';
 
 class appUser {
-  int appUserId;
-  String firstName;
-  String lastName;
-  String nickName;
-  String dateOfBirth;
-  String phoneNumber;
-  String email;
-  String password;
-  String accessStatus;
-  String country;
-  int roleId;
-  int points;
+  int? appUserId;
+  String? firstName;
+  String? lastName;
+  String? nickName;
+  String? dateOfBirth;
+  String? phoneNumber;
+  String? email;
+  String? password;
+  String? accessStatus;
+  String? country;
+  int? roleId;
+  int? points;
 
   appUser(
       this.appUserId,
@@ -29,6 +29,17 @@ class appUser {
       this.country,
       this.roleId,
       this.points
+      );
+
+
+
+  appUser.getId(
+      this.email,
+      );
+
+  appUser.resetPassword(
+      this.appUserId,
+      this.password
       );
 
   appUser.fromJson(Map<String, dynamic> json)
@@ -129,6 +140,63 @@ class appUser {
     }
   }
 
+  Future<bool> resetPassword() async {
+    RequestController req = RequestController(path: "/api/getAppUserId.php");
+    req.setBody({"appUserId": appUserId, "password": password });
+    await req.put();
+    if (req.status() == 400) {
+      return false;
+    } else if (req.status() == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> getUserId() async {
+    RequestController req = RequestController(path: "/api/getAppUserId.php");
+    req.setBody(toJson());
+    await req.post();
+    if (req.status() == 200) {
+      appUserId=req.result()['appUserId'];
+      print(appUserId);
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  //ASH
+  Future<bool> profilesave() async {
+    try {
+      // Create a Map representing the user profile data
+
+      // Send a request to the server to update the user profile
+      RequestController req = RequestController(path: "/api/updateProfile.php");
+      //req.setBody(profileData);
+      req.setBody({"appUserId": appUserId, 'nickName': nickName, 'phoneNumber': phoneNumber, 'password':password});
+      await req.put();
+
+      if (req.status() == 200) {
+        // Profile update successful
+        return true;
+      } else {
+        // Handle specific cases, e.g., duplicate email
+        if (req.result()?.toString() == '{error: Email is already registered}') {
+          return false;
+        } else {
+          // Handle other error cases
+          return false;
+        }
+      }
+    } catch (e) {
+      // Handle errors, log them, and return false.
+      print("Error updating profile: $e");
+      return false;
+    }
+  }
+
 
   Future<List<appUser>> loadAll() async {
     List<appUser> result = [];
@@ -142,5 +210,91 @@ class appUser {
     }
     return result;
   }
-  //hello world!!
+
+  //ASH
+  Future<int> getCountByRoleId(int roleId) async {
+    try {
+
+      // Create a Map representing the user profile data
+
+      RequestController req = RequestController(path: "/api/TotalUsersCount.php");
+      req.setBody({'roleId': 4});
+      await req.post();
+
+      if (req.status() == 200) {
+        Map<String, dynamic> result = req.result();
+        return result['count'];
+      } else {
+        // Handle the error case
+        return -1;
+      }
+    } catch (e) {
+      // Handle errors and return an appropriate value
+      print("Error getCountByRoleId: $e");
+      return -1;
+    }
+  }
+
+  //ASH
+  Future<int> getInternationalUsersCount(String country, int roleId) async {
+    try {
+      RequestController req = RequestController(path: "/api/InternationalUsersCount.php");
+      req.setBody({"country": country, "roleId": 4});
+      await req.post();
+
+      if (req.status() == 200) {
+        Map<String, dynamic> result = req.result();
+        return result['count'];
+      } else {
+        // Handle the error case
+        return 0;
+      }
+    } catch (e) {
+      // Handle errors and return an appropriate value
+      return 0;
+    }
+  }
+
+  //ASH
+  Future<int> getLocalUsersCount(String country, int roleId) async {
+    try {
+      RequestController req = RequestController(path: "/api/LocalUsersCount.php");
+      req.setBody({"country": country, "roleId": 4});
+      await req.post();
+
+      if (req.status() == 200) {
+        Map<String, dynamic> result = req.result();
+        return result['count'];
+      } else {
+        // Handle the error case
+        return 0;
+      }
+    } catch (e) {
+      // Handle errors and return an appropriate value
+      return 0;
+    }
+  }
+
+
+  //ASH
+  Future<int> getCountByAccessStatus(String accessStatus, int roleId) async {
+    try {
+      RequestController req = RequestController(path: "/api/ActiveUsersCount.php");
+      req.setBody({"accessStatus": accessStatus, "roleId": 4});
+      await req.post();
+
+      if (req.status() == 200) {
+        Map<String, dynamic> result = req.result();
+        return result['count'];
+      } else {
+        // Handle the error case
+        return 0;
+      }
+    } catch (e) {
+      // Handle errors and return an appropriate value
+      return 0;
+    }
+  }
+
+
 }

@@ -7,7 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePageViewWebTAC extends StatelessWidget {
   late final appUser user;
-  HomePageViewWebTAC({required this.user}) : nickName = user.nickName;
+  HomePageViewWebTAC({required this.user}) : nickName = user.nickName!;
 
   String nickName = '';
   int? totalQuestion;

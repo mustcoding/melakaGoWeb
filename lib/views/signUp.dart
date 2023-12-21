@@ -678,7 +678,7 @@ class _signUpState extends State<signUp> {
               ElevatedButton(
                 onPressed: _addAdmin,
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.lightGreen.shade700, // Set your desired background color here
+                  backgroundColor: Colors.lightGreen.shade700, // Set your desired background color here
                 ),
                 child: const Text('Sign up',
                     style: TextStyle(fontSize: 18.0,

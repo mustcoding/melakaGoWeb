@@ -82,18 +82,18 @@ class NavigationLoginWebBSDC extends StatelessWidget {
   void _deactivateAccount(BuildContext context) async{
     final List<appUser> admin= [];
 
-    int appUserId=user.appUserId;
-    String firstName=user.firstName;
-    String lastName=user.lastName;
-    String nickName=user.nickName;
-    String dateOfBirth=user.dateOfBirth;
-    String email = user.email;
-    String password = user.password;
-    String phoneNumber=user.phoneNumber;
-    String accessStatus=user.accessStatus;
-    String country=user.country;
-    int roleId=user.roleId;
-    int points = user.points;
+    int appUserId=user.appUserId!;
+    String firstName=user.firstName!;
+    String lastName=user.lastName!;
+    String nickName=user.nickName!;
+    String dateOfBirth=user.dateOfBirth!;
+    String email = user.email!;
+    String password = user.password!;
+    String phoneNumber=user.phoneNumber!;
+    String accessStatus=user.accessStatus!;
+    String country=user.country!;
+    int roleId=user.roleId!;
+    int points = user.points!;
 
     if(email.isNotEmpty && appUserId!=null)
     {
@@ -157,7 +157,7 @@ class NavigationLoginWebBSDC extends StatelessWidget {
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>addServices(user: user)));
                 },
                 style: TextButton.styleFrom(
-                  primary: Colors.black, // Set your desired background color here
+                  foregroundColor: Colors.black, // Set your desired background color here
                 ),
                 child: const Text('ADD SERVICES',
                     style: TextStyle(fontSize: 18.0,
@@ -168,7 +168,7 @@ class NavigationLoginWebBSDC extends StatelessWidget {
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>showServices(user:user)));
                 },
                 style: TextButton.styleFrom(
-                  primary: Colors.black, // Set your desired background color here
+                  foregroundColor: Colors.black, // Set your desired background color here
                 ),
                 child: const Text('SHOW SERVICES',
                     style: TextStyle(fontSize: 18.0,

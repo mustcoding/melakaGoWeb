@@ -36,7 +36,7 @@ class NavigationBarsTablet extends StatelessWidget {
                 TextButton(onPressed:(){
 
                 }, style: TextButton.styleFrom(
-                  primary: Colors.black, // text color
+                  foregroundColor: Colors.black, // text color
                 ),
                   child:
                   Text('About Us',style:
@@ -49,7 +49,7 @@ class NavigationBarsTablet extends StatelessWidget {
                         builder:(context)=>signIn(),));
 
                 },style: TextButton.styleFrom(
-                  primary: Colors.black, // text color
+                  foregroundColor: Colors.black, // text color
                 ),
                   child:
                   Text('Sign In',style:
@@ -61,7 +61,7 @@ class NavigationBarsTablet extends StatelessWidget {
                       MaterialPageRoute(
                         builder:(context)=>signUp(),));
                 },style: TextButton.styleFrom(
-                  primary: Colors.black, // text color
+                  foregroundColor: Colors.black, // text color
                 ),
                   child:
                   Text('Sign Up',style:

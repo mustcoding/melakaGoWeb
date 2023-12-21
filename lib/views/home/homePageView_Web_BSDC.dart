@@ -6,7 +6,7 @@ import '../../Model/appUser.dart';
 
 class HomePageViewWebBSDC extends StatelessWidget {
   late final appUser user;
-  HomePageViewWebBSDC({required this.user}) : nickName = user.nickName;
+  HomePageViewWebBSDC({required this.user}) : nickName = user.nickName!;
   String nickName = '';
   int? touristSpot;
   int? shopping;

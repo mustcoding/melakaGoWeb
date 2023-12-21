@@ -821,7 +821,7 @@ class _addServicesState extends State<addServices> {
               ElevatedButton(
                 onPressed: _addServices,
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.lightGreen.shade700, // Set your desired background color here
+                  backgroundColor: Colors.lightGreen.shade700, // Set your desired background color here
                 ),
                 child: const Text('Register',
                     style: TextStyle(fontSize: 18.0,

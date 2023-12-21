@@ -34,7 +34,7 @@ class NavigationLoginMobile extends StatelessWidget {
               TextButton(onPressed:(){
 
               }, style: TextButton.styleFrom(
-                primary: Colors.black, // text color
+                foregroundColor: Colors.black, // text color
               ),
                 child:
                 Text('About Us',style:
@@ -46,7 +46,7 @@ class NavigationLoginMobile extends StatelessWidget {
                     MaterialPageRoute(
                       builder:(context)=>signIn(),));
               },style: TextButton.styleFrom(
-                primary: Colors.black, // text color
+                foregroundColor: Colors.black, // text color
               ),
                 child:
                 Text('Sign In',style:
@@ -58,7 +58,7 @@ class NavigationLoginMobile extends StatelessWidget {
                     MaterialPageRoute(
                       builder:(context)=>signUp(),));
               },style: TextButton.styleFrom(
-                primary: Colors.black, // text color
+                foregroundColor: Colors.black, // text color
               ),
                 child:
                 Text('Sign Up',style:

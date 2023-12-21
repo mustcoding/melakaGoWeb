@@ -1,7 +1,11 @@
+//JANGAN LUPA TUKAR IP DULUUUUUUU
 import 'package:flutter/material.dart';
 import '../../Model/appUser.dart';
+import '../../views/SA_Function/SettingPageSA.dart';
+import '../../views/SA_Function/rewardPageSA.dart';
 import '../../views/login.dart';
 import '../../views/signUp.dart';
+
 
 class NavigationLoginWebSA extends StatelessWidget {
 
@@ -79,18 +83,18 @@ class NavigationLoginWebSA extends StatelessWidget {
   void _deactivateAccount(BuildContext context) async{
     final List<appUser> admin= [];
 
-    int appUserId=user.appUserId;
-    String firstName=user.firstName;
-    String lastName=user.lastName;
-    String nickName=user.nickName;
-    String dateOfBirth=user.dateOfBirth;
-    String email = user.email;
-    String password = user.password;
-    String phoneNumber=user.phoneNumber;
-    String accessStatus=user.accessStatus;
-    String country=user.country;
-    int roleId=user.roleId;
-    int points=user.points;
+    int appUserId=user.appUserId!;
+    String firstName=user.firstName!;
+    String lastName=user.lastName!;
+    String nickName=user.nickName!;
+    String dateOfBirth=user.dateOfBirth!;
+    String email = user.email!;
+    String password = user.password!;
+    String phoneNumber=user.phoneNumber!;
+    String accessStatus=user.accessStatus!;
+    String country=user.country!;
+    int roleId=user.roleId!;
+    int points = user.points!;
 
     if(email.isNotEmpty && appUserId!=null)
     {
@@ -117,34 +121,44 @@ class NavigationLoginWebSA extends StatelessWidget {
 
   List<String> settingMenu = [
     'Update Profile',
+    'Reward Page',
     'Deactivate Account',
     'Sign Out',
   ];
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.lightGreen.shade700,
       height: 100,
       padding: EdgeInsets.symmetric(horizontal: 20), // Adjust as needed
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child:
+      Row(
+        //mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          // Icon or Image widget
+          //child:
           ClipOval(
             child: Image.asset(
               'assets/MelakaGo.png',
-              width: 80,
-              height: 80,
+              width: 90,
+              height: 90,
               fit: BoxFit.cover,
             ),
-          ),
-          SizedBox(width:15.0),
+          ), // Adjust the spacing between icon and text
+
+          SizedBox(width: 10),
+
           Expanded(
-            child:
-            Text(
-              'System Admin',
-              style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+            //child: Center(
+            child: Text(
+              'System Admin Page',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
+            //),
           ),
+
           Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -165,8 +179,13 @@ class NavigationLoginWebSA extends StatelessWidget {
                 onSelected: (String value){
                   if(value == 'Update Profile'){
                     Navigator.push(
-                      context, MaterialPageRoute(builder:(context)=>signUp(),
+                      context, MaterialPageRoute(builder:(context)=>SettingsPageSA(user: user,),
                     ),
+                    );
+                  }
+                  if(value == 'Reward Page'){
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context)=>RewardPage(user: user,))
                     );
                   }
                   if(value == 'Deactivate Account'){
@@ -183,10 +202,14 @@ class NavigationLoginWebSA extends StatelessWidget {
                   }
                 },
               ),
+
             ],
           ),
+
         ],
       ),
+
+
     );
   }
 

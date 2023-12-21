@@ -106,7 +106,7 @@ class _quizFormState extends State<quizForm>{
     final String correctAnswer = correctAnswerController.text.trim();
     final int point = int.parse(pointController.text.trim());
     final int qrId = int.parse(qrIdController.text.trim());
-
+    //kkk
     int questionId=0;
 
     if (questionText.isNotEmpty && answerOption1.isNotEmpty &&
@@ -197,15 +197,76 @@ class _quizFormState extends State<quizForm>{
           print("Quiz number at qrID ${qrArea[i].qrId}: ${quizNumber}");
 
           //only save the qrId that having less than 20 question in qrUnder20
-          if (quizNumber<20 )
+          if (quizNumber>=0 && quizNumber<20 )
           {
             qrUnder20.add(qrArea[i].qrId!);
-            print("UNDER 20 QUIZ: ${qrUnder20[i]}");
+            print("UNDER 20 QUIZ: ${qrUnder20.last}");
           }
 
         }
 
-        Future.delayed(Duration(milliseconds: 100), () {
+        if (qrUnder20.isEmpty) {
+
+          int qrId=0;
+
+          //instances to create new qrSpot
+          qrSpot addQr = qrSpot(qrId, tourismServiceQuiz);
+
+          qrUnder20.clear();
+
+          //add new qrSpot
+          if(await addQr.saveQR()){
+
+            print("Successful registered");
+
+            qrSpot qr = qrSpot.getId(tourismServiceQuiz);
+
+            List<qrSpot> loadedQr = await qr.loadQRSpot();
+
+            if (loadedQr.isNotEmpty) {
+              setState(() {
+                qrArea.clear();
+                qrArea.addAll(loadedQr);
+              });
+
+              qrUnder20.clear();
+
+              for (int i = 0; i < qrArea.length; i++) {
+                //instance by parsing qrId to count the number of question
+                //referring to the qrId
+                quizQuestion quiz = quizQuestion.Id(qrArea[i].qrId);
+
+                //calculate the quiz question by qrId
+                int quizNumber = await quiz.calculateQuizByQR();
+
+                print("Quiz number at qrID ${qrArea[i].qrId}: ${quizNumber}");
+
+                //only save the qrId that having less than 20 question in qrUnder20
+                if (quizNumber >= 0 && quizNumber < 20) {
+                  qrUnder20.add(qrArea[i].qrId!);
+                  print("UNDER 20 QUIZ: ${qrUnder20.last}");
+                }
+              }
+            }
+
+           /* if (await qr.getQRId()){
+              qrUnder20.add(qr.qrId!);
+              print("The new QR: ${qrUnder20[0]}");
+
+            }*/
+
+          }
+
+          /*Future.delayed(Duration(milliseconds: 100), () {
+            setState(() {
+              // Update the dropdown menu items with the new values
+              selectedqrId = null;
+
+            });
+          });*/
+        }
+
+       Future.delayed(Duration(milliseconds: 300), () {
           setState(() {
             // Update the dropdown menu items with the new values
             selectedqrId = null;
@@ -238,15 +299,14 @@ class _quizFormState extends State<quizForm>{
           }
 
         }
-
-        Future.delayed(Duration(milliseconds: 100), () {
-          setState(() {
-            // Update the dropdown menu items with the new values
-            selectedqrId = null;
-
-          });
-        });
       }
+      Future.delayed(Duration(milliseconds: 100), () {
+        setState(() {
+          // Update the dropdown menu items with the new values
+          selectedqrId = null;
+
+        });
+      });
     }
   }
 
@@ -424,7 +484,7 @@ class _quizFormState extends State<quizForm>{
                       ElevatedButton(
                         onPressed: _checkQRId,
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.lightGreen.shade700,
+                          backgroundColor: Colors.lightGreen.shade700,
                         ),
                         child: const Text(
                           'Check QR ID',
@@ -503,7 +563,7 @@ class _quizFormState extends State<quizForm>{
                       ElevatedButton(
                         onPressed: _addQuestion,
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.lightGreen.shade700,
+                          backgroundColor: Colors.lightGreen.shade700,
                         ),
                         child: const Text(
                           'Add Quiz Question',

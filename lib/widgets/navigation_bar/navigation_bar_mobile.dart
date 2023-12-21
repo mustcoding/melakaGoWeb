@@ -33,7 +33,7 @@ class NavigationBarsMobile extends StatelessWidget {
                 TextButton(onPressed:(){
 
                 }, style: TextButton.styleFrom(
-                  primary: Colors.black, // text color
+                  foregroundColor: Colors.black, // text color
                 ),
                   child:
                   Text('About Us',style:
@@ -42,7 +42,7 @@ class NavigationBarsMobile extends StatelessWidget {
                 TextButton(onPressed:(){
 
                 },style: TextButton.styleFrom(
-                  primary: Colors.black, // text color
+                  foregroundColor: Colors.black, // text color
                 ),
                   child:
                   Text('Sign In',style:
@@ -50,7 +50,7 @@ class NavigationBarsMobile extends StatelessWidget {
                 SizedBox(width: 60),
                 TextButton(onPressed:(){
                 },style: TextButton.styleFrom(
-                  primary: Colors.black, // text color
+                  foregroundColor: Colors.black, // text color
                 ),
                   child:
                   Text('Sign Up',style:

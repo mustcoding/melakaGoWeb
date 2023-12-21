@@ -51,17 +51,17 @@ class _updateProfilePageState extends State<updateProfilePage> {
 
 
     // Initialize the user field here
-    firstNameController.text = widget.user.firstName;
-    lastNameController.text = widget.user.lastName;
-    nickNameController.text = widget.user.nickName;
-    dateOfBirthController.text = widget.user.dateOfBirth;
-    emailController.text = widget.user.email;
-    passwordController.text = widget.user.password;
-    phoneNumberController.text = widget.user.phoneNumber;
-    countryController.text = widget.user.country ;
+    firstNameController.text = widget.user.firstName!;
+    lastNameController.text = widget.user.lastName!;
+    nickNameController.text = widget.user.nickName!;
+    dateOfBirthController.text = widget.user.dateOfBirth!;
+    emailController.text = widget.user.email!;
+    passwordController.text = widget.user.password!;
+    phoneNumberController.text = widget.user.phoneNumber!;
+    countryController.text = widget.user.country! ;
     adminRoleController.text = widget.user.roleId.toString();
-    appUserId = widget.user.appUserId;
-    roleId = widget.user.roleId;
+    appUserId = widget.user.appUserId!;
+    roleId = widget.user.roleId!;
 
 
     if (adminRoleController.text=="1"){
@@ -454,7 +454,7 @@ class _updateProfilePageState extends State<updateProfilePage> {
               ElevatedButton(
                 onPressed: _editAdmin,
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.lightGreen.shade700, // Set your desired background color here
+                  backgroundColor: Colors.lightGreen.shade700, // Set your desired background color here
                 ),
                 child: const Text('Edit Profile',
                     style: TextStyle(fontSize: 18.0,

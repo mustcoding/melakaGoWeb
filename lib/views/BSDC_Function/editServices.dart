@@ -768,7 +768,7 @@ class _editServicesState extends State<editServices> {
               ElevatedButton(
                 onPressed: _editServices,
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.lightGreen.shade700, // Set your desired background color here
+                  backgroundColor: Colors.lightGreen.shade700, // Set your desired background color here
                 ),
                 child: const Text('Update',
                     style: TextStyle(fontSize: 18.0,
