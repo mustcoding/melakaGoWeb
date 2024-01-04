@@ -152,7 +152,7 @@ class HomePageViewWebBSDC extends StatelessWidget {
                                       ),
                                       SizedBox(width: 25.0),
                                       Text(
-                                        'TOURIST SPOT',
+                                        'HSTORICAL SITE',
                                         style: TextStyle(
                                           fontSize: 24.0,
                                           fontWeight: FontWeight.bold,

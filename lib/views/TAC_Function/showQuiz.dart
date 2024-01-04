@@ -2,45 +2,38 @@ import 'dart:html';
 import 'dart:typed_data';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:melakago_web/views/TAC_Function/editQuiz.dart';
 import 'package:melakago_web/views/home/homePageView_Web_BSDC.dart';
 import '../../Model/appUser.dart';
+import '../../Model/quizQuestion.dart';
 import '../../Model/tourismService.dart';
-import 'editServices.dart';
 
-class showServices extends StatefulWidget {
+class showQuizQuestion extends StatefulWidget {
 
   late final appUser user;
-  showServices({required this.user});
+  showQuizQuestion({required this.user});
 
   @override
-  State<showServices> createState() => _showServicesState();
+  State<showQuizQuestion> createState() => _showQuizQuestionState();
 }
 
-class _showServicesState extends State<showServices> {
+class _showQuizQuestionState extends State<showQuizQuestion> {
 
   late appUser user;
-
   late tourismService ts;
-  final List<tourismService> services = [];
-  int tourismServiceId =0;
-  String companyName = "";
-  String companyAddress = "";
-  String businessContactNumber = "";
-  String email = "";
-  String businessStartHour = "";
-  String businessEndHour = "";
-  String faxNumber = "";
-  String instagram = "";
-  String xTwitter = "";
-  String thread = "";
-  String facebook = "";
-  String businessLocation = "";
-  int starRating = 0;
-  String businessDescription = "";
-
-  int tsId=0;
+  final List<quizQuestion> quizes = [];
+  int questionId =0;
+  String questionText = "";
+  String answerOption1 = "";
+  String answerOption2 = "";
+  String answerOption3 = "";
+  String answerOption4 = "";
+  String correctAnswer = "";
+  int point = 0;
+  int qrId = 0;
   int isDelete=0;
 
+  int tsId=0;
 
   @override
   void initState() {
@@ -50,16 +43,16 @@ class _showServicesState extends State<showServices> {
 
   Future<void> onListAllClicked() async {
     print("List ALL clicked");
-    tourismService service = tourismService (tourismServiceId,companyName,
-        companyAddress, businessContactNumber,
-        email, businessStartHour,businessEndHour, faxNumber, instagram,
-        xTwitter, thread, facebook, businessLocation,starRating,
-        businessDescription,tsId, isDelete);
-    List<tourismService> loadedServices = await service.loadAll(); // Call the instance method
+
+    quizQuestion quiz = quizQuestion(questionId, questionText, answerOption1,
+        answerOption2, answerOption3, answerOption4, correctAnswer,
+        point, qrId, isDelete);
+
+    List<quizQuestion> loadedQuizes = await quiz.loadAll(); // Call the instance method
 
     setState(() {
-      services .clear();
-      services.addAll(loadedServices);
+      quizes .clear();
+      quizes.addAll(loadedQuizes);
     });
 
 
@@ -71,17 +64,16 @@ class _showServicesState extends State<showServices> {
     tsId=6;
     print("Tourist Spot clicked");
 
-    tourismService service = tourismService (tourismServiceId,companyName,
-        companyAddress, businessContactNumber,
-        email, businessStartHour,businessEndHour, faxNumber, instagram,
-        xTwitter, thread, facebook, businessLocation,starRating,
-        businessDescription, tsId, isDelete);
+    quizQuestion quiz = quizQuestion(questionId, questionText, answerOption1,
+        answerOption2, answerOption3, answerOption4, correctAnswer,
+        point, qrId, isDelete);
 
-    List<tourismService> loadedServices = await service.loadTourismService(); // Call the instance method
+    List<quizQuestion> loadedQuizes = await quiz.loadQuizTS(); // Call the instance method
 
+    //loadTourismService()
     setState(() {
-      services .clear();
-      services.addAll(loadedServices);
+      quizes .clear();
+      quizes.addAll(loadedQuizes);
     });
 
   }
@@ -91,17 +83,16 @@ class _showServicesState extends State<showServices> {
     tsId=5;
     print("Activity clicked");
 
-    tourismService service = tourismService (tourismServiceId,companyName,
-        companyAddress, businessContactNumber,
-        email, businessStartHour,businessEndHour, faxNumber, instagram,
-        xTwitter, thread, facebook, businessLocation,starRating,
-        businessDescription, tsId, isDelete);
+    quizQuestion quiz = quizQuestion(questionId, questionText, answerOption1,
+        answerOption2, answerOption3, answerOption4, correctAnswer,
+        point, qrId, isDelete);
 
-    List<tourismService> loadedServices = await service.loadTourismService(); // Call the instance method
+    List<quizQuestion> loadedQuizes = await quiz.loadQuizActivity(); // Call the instance method
 
+    //loadTourismService()
     setState(() {
-      services .clear();
-      services.addAll(loadedServices);
+      quizes .clear();
+      quizes.addAll(loadedQuizes);
     });
 
   }
@@ -110,17 +101,16 @@ class _showServicesState extends State<showServices> {
     tsId=4;
     print("Restaurant clicked");
 
-    tourismService service = tourismService (tourismServiceId,companyName,
-        companyAddress, businessContactNumber,
-        email, businessStartHour,businessEndHour, faxNumber, instagram,
-        xTwitter, thread, facebook, businessLocation,starRating,
-        businessDescription, tsId, isDelete);
+    quizQuestion quiz = quizQuestion(questionId, questionText, answerOption1,
+        answerOption2, answerOption3, answerOption4, correctAnswer,
+        point, qrId, isDelete);
 
-    List<tourismService> loadedServices = await service.loadTourismService(); // Call the instance method
+    List<quizQuestion> loadedQuizes = await quiz.loadQuizRestaurant(); // Call the instance method
 
+    //loadTourismService()
     setState(() {
-      services .clear();
-      services.addAll(loadedServices);
+      quizes .clear();
+      quizes.addAll(loadedQuizes);
     });
 
   }
@@ -129,17 +119,17 @@ class _showServicesState extends State<showServices> {
   void onLodgingClicked() async {
     tsId=3;
     print("Lodging clicked");
-    tourismService service = tourismService (tourismServiceId,companyName,
-        companyAddress, businessContactNumber,
-        email, businessStartHour,businessEndHour, faxNumber, instagram,
-        xTwitter, thread, facebook, businessLocation,starRating,
-        businessDescription, tsId, isDelete);
 
-    List<tourismService> loadedServices = await service.loadTourismService(); // Call the instance method
+    quizQuestion quiz = quizQuestion(questionId, questionText, answerOption1,
+        answerOption2, answerOption3, answerOption4, correctAnswer,
+        point, qrId, isDelete);
 
+    List<quizQuestion> loadedQuizes = await quiz.loadQuizLodging(); // Call the instance method
+
+    //loadTourismService()
     setState(() {
-      services .clear();
-      services.addAll(loadedServices);
+      quizes .clear();
+      quizes.addAll(loadedQuizes);
     });
 
   }
@@ -149,17 +139,16 @@ class _showServicesState extends State<showServices> {
     tsId=2;
     print("Transportation clicked");
 
-    tourismService service = tourismService (tourismServiceId,companyName,
-        companyAddress, businessContactNumber,
-        email, businessStartHour,businessEndHour, faxNumber, instagram,
-        xTwitter, thread, facebook, businessLocation,starRating,
-        businessDescription, tsId, isDelete);
+    quizQuestion quiz = quizQuestion(questionId, questionText, answerOption1,
+        answerOption2, answerOption3, answerOption4, correctAnswer,
+        point, qrId, isDelete);
 
-    List<tourismService> loadedServices = await service.loadTourismService(); // Call the instance method
+    List<quizQuestion> loadedQuizes = await quiz.loadQuizTransport(); // Call the instance method
 
+    //loadTourismService()
     setState(() {
-      services .clear();
-      services.addAll(loadedServices);
+      quizes .clear();
+      quizes.addAll(loadedQuizes);
     });
 
   }
@@ -169,17 +158,16 @@ class _showServicesState extends State<showServices> {
     tsId=1;
     print("Souvenir Stall clicked");
 
-    tourismService service = tourismService (tourismServiceId,companyName,
-        companyAddress, businessContactNumber,
-        email, businessStartHour,businessEndHour, faxNumber, instagram,
-        xTwitter, thread, facebook, businessLocation,starRating,
-        businessDescription, tsId, isDelete);
+    quizQuestion quiz = quizQuestion(questionId, questionText, answerOption1,
+        answerOption2, answerOption3, answerOption4, correctAnswer,
+        point, qrId, isDelete);
 
-    List<tourismService> loadedServices = await service.loadTourismService(); // Call the instance method
+    List<quizQuestion> loadedQuizes = await quiz.loadQuizShopping(); // Call the instance method
 
+    //loadTourismService()
     setState(() {
-      services .clear();
-      services.addAll(loadedServices);
+      quizes .clear();
+      quizes.addAll(loadedQuizes);
     });
 
   }
@@ -188,22 +176,20 @@ class _showServicesState extends State<showServices> {
   void _removeServices(int index) async{
 
     int isDelete=1;
-    int? id=services[index].tourismServiceId;
+    int? id=quizes[index].questionId;
 
-    tourismService service = tourismService (id,companyName,
-        companyAddress, businessContactNumber,
-        email, businessStartHour,businessEndHour, faxNumber, instagram,
-        xTwitter, thread, facebook, businessLocation,starRating,
-        businessDescription, tsId, isDelete);
+    quizQuestion quiz = quizQuestion(questionId, questionText, answerOption1,
+        answerOption2, answerOption3, answerOption4, correctAnswer,
+        point, qrId, isDelete);
 
-    if(await service.deleteService()){
+    if(await quiz.deleteQuiz()){
 
       _AlertMessage(context, "NOTE: Tourism Service Successfully Deleted");
       Future.delayed(Duration(seconds: 2), () {
         // Navigate to the login screen
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => showServices(user:user)),
+          MaterialPageRoute(builder: (context) => showQuizQuestion(user:user)),
         );
       });
     }
@@ -286,7 +272,7 @@ class _showServicesState extends State<showServices> {
                         ),
                         SizedBox(height: 5),
                         Text(
-                          "Historical Site",
+                          "Tourist Spot",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
@@ -417,10 +403,10 @@ class _showServicesState extends State<showServices> {
       width: 1200,
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: services.length,
+        itemCount: quizes.length,
         itemBuilder: (context, index) {
           return Dismissible(
-            key: Key(services[index].companyName.toString()),
+            key: Key(quizes[index].questionText.toString()),
             background: Container(
               color: Colors.red,
               child: Center(
@@ -439,12 +425,11 @@ class _showServicesState extends State<showServices> {
             child: Card(
               margin: EdgeInsets.all(8.0),
               child: ListTile(
-                title: Text(services[index].companyName.toString()),
+                title: Text(quizes[index].questionText.toString()),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Start Hour: ${services[index].businessStartHour}'),
-                    Text('End Hour: ${services[index].businessEndHour}'),
+                    Text('Quiz Point: ${quizes[index].point}'),
                   ],
                 ),
                 trailing: Row(
@@ -453,11 +438,11 @@ class _showServicesState extends State<showServices> {
                     IconButton(
                       icon: Icon(Icons.edit),
                       onPressed: () {
-                        if (services != null && services.isNotEmpty && index >= 0 && index < services.length) {
+                        if (quizes != null && quizes.isNotEmpty && index >= 0 && index < quizes.length) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => editServices(index: index, services: services, user: user),
+                              builder: (context) => editQuizQuestion(index: index, quizes: quizes, user:user),
                             ),
                           );
                         } else {

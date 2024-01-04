@@ -14,18 +14,18 @@ class editServices extends StatefulWidget {
 
   final List<tourismService>? services;
   final int ? index;
+  final appUser user;
 
-  editServices({required int? index, required List<tourismService>? services})
+  editServices({required int? index, required List<tourismService>? services, required this.user})
       : index = index,
         services = services;
 
   @override
-  State<editServices> createState() => _editServicesState(index!, services!);
+  State<editServices> createState() => _editServicesState(index!, services!, user);
 }
 
 class _editServicesState extends State<editServices> {
 
-  late appUser user;
 
   final int ? index;
   final List<tourismService>? services;
@@ -37,7 +37,7 @@ class _editServicesState extends State<editServices> {
   Uint8List? gambar;
   int isDelete=0;
 
-  _editServicesState(this.index, this.services);
+  _editServicesState(this.index, this.services, appUser user);
 
   late TextEditingController tourismServiceIdController;
   late TextEditingController companyNameController;
@@ -105,7 +105,22 @@ class _editServicesState extends State<editServices> {
     tourismServiceImage serviceImage = tourismServiceImage(imageId, images, tourismServiceId!);
     if (await serviceImage.getImage()) {
       getImages = serviceImage.image;
-      getImages = getImages.replaceAll("\\", "");
+
+      // Remove backslashes from the string
+      getImages = getImages.replaceAll(r'\\', '');
+
+
+      // Trim the string to remove any leading or trailing whitespaces
+      getImages = getImages.trim();
+      print("IMAAAAAAA: ${getImages}");
+
+      // Check if the string contains the specified prefix
+      if (getImages.startsWith("data:image\/jpeg;base64,")) {
+        // Remove the prefix "data:image/jpeg;base64,"
+        getImages = getImages.substring(getImages.indexOf(',') + 1);
+        print("DATA HEREEEEEE: ${getImages}");
+      }
+
       print("Images WOI: ${getImages}");
       return true;
     } else {
@@ -184,7 +199,7 @@ class _editServicesState extends State<editServices> {
 
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => showServices(user:user)),
+            MaterialPageRoute(builder: (context) => showServices(user:widget.user)),
           );
         });
       }

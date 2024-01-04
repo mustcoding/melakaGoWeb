@@ -55,7 +55,7 @@ class _addServicesState extends State<addServices> {
     'Lodging',
     'Restaurant',
     'Activity',
-    'Tourist Spot',
+    'Historical Site',
   ];
 
   void _addServices() async{
@@ -109,7 +109,7 @@ class _addServicesState extends State<addServices> {
       {
         tsId = 5;
       }
-      else if(types == 'Tourist Spot')
+      else if(types == 'Historical Site')
       {
         tsId = 6;
       }

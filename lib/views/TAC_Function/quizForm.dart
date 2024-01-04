@@ -106,6 +106,7 @@ class _quizFormState extends State<quizForm>{
     final String correctAnswer = correctAnswerController.text.trim();
     final int point = int.parse(pointController.text.trim());
     final int qrId = int.parse(qrIdController.text.trim());
+    final int isDelete=0;
     //kkk
     int questionId=0;
 
@@ -116,7 +117,7 @@ class _quizFormState extends State<quizForm>{
 
 
       quizQuestion question = quizQuestion (questionId,questionText,answerOption1,
-          answerOption2,answerOption3,answerOption4,correctAnswer,point,qrId);
+          answerOption2,answerOption3,answerOption4,correctAnswer,point,qrId, isDelete);
 
       if (await question.saveQuestion()){
 
@@ -248,22 +249,7 @@ class _quizFormState extends State<quizForm>{
                 }
               }
             }
-
-           /* if (await qr.getQRId()){
-              qrUnder20.add(qr.qrId!);
-              print("The new QR: ${qrUnder20[0]}");
-
-            }*/
-
           }
-
-          /*Future.delayed(Duration(milliseconds: 100), () {
-            setState(() {
-              // Update the dropdown menu items with the new values
-              selectedqrId = null;
-
-            });
-          });*/
         }
 
        Future.delayed(Duration(milliseconds: 300), () {

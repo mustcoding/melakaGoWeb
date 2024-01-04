@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:melakago_web/views/TAC_Function/quizForm.dart';
+import 'package:melakago_web/views/TAC_Function/showQuiz.dart';
 import '../../Model/appUser.dart';
 import '../../views/BSDC_Function/addServices.dart';
 import '../../views/BSDC_Function/showServices.dart';
@@ -167,12 +168,12 @@ class NavigationLoginWebTAC extends StatelessWidget {
               TextButton(
                 onPressed: (){
 
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>showServices(user: user)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>showQuizQuestion(user: user)));
                 },
                 style: TextButton.styleFrom(
                   foregroundColor: Colors.black, // Set your desired background color here
                 ),
-                child: const Text('SHOW SERVICE',
+                child: const Text('SHOW QUIZES',
                     style: TextStyle(fontSize: 18.0,
                         fontWeight: FontWeight.bold)),
               ),

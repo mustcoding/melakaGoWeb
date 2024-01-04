@@ -26,11 +26,12 @@ class HomePageViewWebTAC extends StatelessWidget {
     String correctAnswer='';
     int point=0;
     int qrId=0;
+    int isDelete=0;
 
 
     quizQuestion question = quizQuestion (questionId,
         questionText,answerOption1,answerOption2, answerOption3,
-        answerOption4, correctAnswer, point,qrId);
+        answerOption4, correctAnswer, point,qrId, isDelete);
 
     totalQuestion = await question.calculate();
 
